@@ -2,12 +2,12 @@
 
 namespace Aspros.SaaS.System.Domain.ValueObjects
 {
-    public enum PackageStatus
+    public enum Status
     {
         [Display(Description = "停用")]
-        Invalid = 0,
+        Invalid = 1,
 
         [Display(Description = "正常")]
-        Normal = 1
+        Normal = 0
     }
 }

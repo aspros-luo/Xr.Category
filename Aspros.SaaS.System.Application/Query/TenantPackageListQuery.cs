@@ -13,6 +13,6 @@ namespace Aspros.SaaS.System.Application.Query
         /// <summary>
         /// 套餐状态
         /// </summary>
-        public PackageStatus? Status { get; set; }
+        public Status? Status { get; set; }
     }
 }

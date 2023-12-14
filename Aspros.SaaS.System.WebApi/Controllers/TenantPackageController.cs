@@ -6,21 +6,37 @@ using Microsoft.AspNetCore.Mvc;
 namespace Aspros.SaaS.System.WebApi.Controllers
 {
     [ApiController]
-    [Route("tenant.package")]
+    [Route("system")]
     public class TenantPackageController(IMediator mediator) : Controller
     {
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
-        [Route("created")]
+        [Route("tenant.package.created")]
         public async Task<IActionResult> Created(TenantPackageCreateCommand cmd)
         {
             var result = await _mediator.Send(cmd);
             return Ok(new { data = result, is_successd = true });
         }
 
+        [HttpPut]
+        [Route("tenant.package.del")]
+        public async Task<IActionResult> Del(TenantPackageDelCommand cmd)
+        {
+            var result = await _mediator.Send(cmd);
+            return Ok(new { data = result, is_successd = true });
+        }
+
+        [HttpPost]
+        [Route("tenant.package.modify")]
+        public async Task<IActionResult> Modify(TenantPackageModifyCommand cmd)
+        {
+            var result = await _mediator.Send(cmd);
+            return Ok(new { data = result, is_successd = true });
+        }
+
         [HttpGet]
-        [Route("query.list")]
+        [Route("tenant.package.query.list")]
         public async Task<IActionResult> List([FromQuery] TenantPackageListQuery query)
         {
             var result = await _mediator.Send(query);

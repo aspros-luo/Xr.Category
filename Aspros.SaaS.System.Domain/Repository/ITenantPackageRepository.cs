@@ -10,7 +10,7 @@ namespace Aspros.SaaS.System.Domain.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        IQueryable<TenantPackage> QueryDetail(int id);
+        IQueryable<TenantPackage> QueryDetail(long id);
 
         /// <summary>
         /// 查询列表

@@ -14,14 +14,14 @@ namespace Aspros.SaaS.System.Infrastructure.Repostory
             _tenantPackages = Entities.Where(x => !x.Deleted);
         }
 
-        public IQueryable<TenantPackage> QueryDetail(int id)
+        public IQueryable<TenantPackage> QueryDetail(long id)
         {
-            return _tenantPackages.Where(x => !x.Deleted && x.Id == id);
+            return _tenantPackages.Where(x => x.Id == id);
         }
 
         public IQueryable<TenantPackage> QueryList(string? name)
         {
-            return _tenantPackages.Where(x => !x.Deleted && (string.IsNullOrEmpty(name) || x.Name.Contains(name)));
+            return _tenantPackages.Where(x => string.IsNullOrEmpty(name) || x.Name.Contains(name));
         }
     }
 }
