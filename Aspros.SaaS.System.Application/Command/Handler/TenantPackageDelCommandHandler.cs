@@ -13,7 +13,7 @@ namespace Aspros.SaaS.System.Application.Command.Handler
         public async Task<long> Handle(TenantPackageDelCommand request, CancellationToken cancellationToken)
         {
             var entity = (await _tenantPackageRepository.QueryDetail(request.Id).FirstOrDefaultAsync(cancellationToken: cancellationToken) ?? throw new ArgumentNullException("套餐不存在!")) ?? throw new Exception("数据不存在");
-            await _unitOfWork.RegisterDeleted(entity,request.IsDel);
+            await _unitOfWork.RegisterDeleted(entity, true);
             await _unitOfWork.CommitAsync();
             return entity.Id;
         }
