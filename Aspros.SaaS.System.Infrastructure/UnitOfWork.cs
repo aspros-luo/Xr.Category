@@ -59,7 +59,7 @@ namespace Aspros.SaaS.System.Infrastructure
                 var userId = await _workContext.GetUserId();
                 _dbContext.Entry(entity).Property("Updater").CurrentValue = userId;
                 _dbContext.Entry(entity).Property("UpdateTime").CurrentValue = DateTime.Now;
-                _dbContext.Entry(entity).Property("Deleted").CurrentValue = 1;
+                _dbContext.Entry(entity).Property("Deleted").CurrentValue = true;
                 _dbContext.Set<TEntity>().Update(entity);
             }
             if (DbContextTransaction != null)
@@ -83,6 +83,11 @@ namespace Aspros.SaaS.System.Infrastructure
             var userId = await _workContext.GetUserId();
             _dbContext.Entry(entity).Property("Creator").CurrentValue = userId;
             _dbContext.Entry(entity).Property("CreateTime").CurrentValue = DateTime.Now;
+            var tenantProp = _dbContext.Entry(entity).Property("TenantId");
+            if (tenantProp != null)
+            {
+                tenantProp.CurrentValue = await _workContext.GetTenantId();
+            }
             _dbContext.Set<TEntity>().Add(entity);
             if (DbContextTransaction != null)
                 return await _dbContext.SaveChangesAsync() > 0;

@@ -17,6 +17,8 @@ namespace Aspros.SaaS.System.Domain.Domain
         public DateTime ExpireTime { get; private set; }
         public int AccountCount { get; private set; } = 0;
 
+        public virtual List<User> UserList { get; set; }
+
         public Tenant() { }
 
         public Tenant(string name, string website, long packgeId, DateTime expireTime)
