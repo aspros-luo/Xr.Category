@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspros.SaaS.System.Infrastructure", "Aspros.SaaS.System.Infrastructure\Aspros.SaaS.System.Infrastructure.csproj", "{D736ED18-9E11-4CE5-AA75-06034169CF25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspros.SaaS.System.Infrastructure", "Aspros.SaaS.System.Infrastructure\Aspros.SaaS.System.Infrastructure.csproj", "{D736ED18-9E11-4CE5-AA75-06034169CF25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspros.SaaS.System.Domain", "Aspros.SaaS.System.Domain\Aspros.SaaS.System.Domain.csproj", "{721480E8-C61F-4BB4-8C5B-0815396C905C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspros.SaaS.System.Domain", "Aspros.SaaS.System.Domain\Aspros.SaaS.System.Domain.csproj", "{721480E8-C61F-4BB4-8C5B-0815396C905C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspros.SaaS.System.Application", "Aspros.SaaS.System.Application\Aspros.SaaS.System.Application.csproj", "{5FE43D2A-B95E-4ED9-B617-D385BF2687A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspros.SaaS.System.Application", "Aspros.SaaS.System.Application\Aspros.SaaS.System.Application.csproj", "{5FE43D2A-B95E-4ED9-B617-D385BF2687A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspros.SaaS.System.WebApi", "Aspros.SaaS.System.WebApi\Aspros.SaaS.System.WebApi.csproj", "{EF73A76B-7571-4807-895C-67658F98E767}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspros.SaaS.System.WebApi", "Aspros.SaaS.System.WebApi\Aspros.SaaS.System.WebApi.csproj", "{EF73A76B-7571-4807-895C-67658F98E767}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
