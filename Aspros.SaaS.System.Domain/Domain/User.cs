@@ -1,6 +1,5 @@
 ﻿using Aspros.Base.Framework.Domain;
 using Aspros.SaaS.System.Domain.ValueObjects;
-using System.Diagnostics;
 
 namespace Aspros.SaaS.System.Domain.Domain
 {

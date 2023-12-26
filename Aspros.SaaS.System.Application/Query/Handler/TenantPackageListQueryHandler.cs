@@ -1,20 +1,26 @@
-﻿using Aspros.SaaS.System.Domain.Domain;
+﻿using Aspros.SaaS.System.Application.ViewModel;
+using Aspros.SaaS.System.Domain.Domain;
 using Aspros.SaaS.System.Domain.Repository;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aspros.SaaS.System.Application.Query.Handler
 {
-    public class TenantPackageListQueryHandler(ITenantPackageRepository tenantPackageRepository, IServiceScopeFactory serviceScopeFactory) : IRequestHandler<TenantPackageListQuery, List<TenantPackage>>
+    public class TenantPackageListQueryHandler(ITenantPackageRepository tenantPackageRepository, IServiceScopeFactory serviceScopeFactory) : IRequestHandler<TenantPackageListQuery, List<TenantPackageViewModel>>
     {
         private readonly ITenantPackageRepository _tenantPackageRepository = tenantPackageRepository;
         
         private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
 
-        async Task<List<TenantPackage>> IRequestHandler<TenantPackageListQuery, List<TenantPackage>>.Handle(TenantPackageListQuery request, CancellationToken cancellationToken)
+        async Task<List<TenantPackageViewModel>> IRequestHandler<TenantPackageListQuery, List<TenantPackageViewModel>>.Handle(TenantPackageListQuery request, CancellationToken cancellationToken)
         {
-            return await _tenantPackageRepository.QueryList(request.Name).ToListAsync();
+            var result =  await _tenantPackageRepository.QueryList(request.Name).ToListAsync();
+            var pageResult = result.Adapt<List<TenantPackageViewModel>>();
+            //pageResult.AsParallel().Select(x => x.Status.GetNameKeyValue());
+            return pageResult;
+
         }
 
         private Queue<Tuple<string, string>> BuildData(List<string> data)

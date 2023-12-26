@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspros.Base.Framework.Infrastructure" Version="1.0.6" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>

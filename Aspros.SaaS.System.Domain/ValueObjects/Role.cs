@@ -1,0 +1,68 @@
+﻿using Aspros.Base.Framework.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Aspros.SaaS.System.Domain.ValueObjects
+{
+    public class Role : BaseEntity
+    {
+        #region
+
+        public long Id { get; private set; }
+        public string Name { get; private set; }
+        public string Code { get; private set; }
+        public int Sort { get; private set; }
+        public DataScope DataScope { get; private set; }
+        public string DataScopeDeptIds { get; private set; }
+        public Status Status { get; private set; } = Status.Normal;
+        public RoleType Type { get; private set; }=RoleType.Normal;
+        public string Remark { get; private set; } = string.Empty;
+
+        public Role() { }
+
+        public Role(string name, string code, int sort, DataScope dataScope, string dataScopeDeptIds, RoleType type, string remark)
+        {
+            Name = name;
+            Code = code;
+            Sort = sort;
+            DataScope = dataScope;
+            DataScopeDeptIds = dataScopeDeptIds;
+            Type = type;
+            Remark = remark;
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="code"></param>
+        /// <param name="sort"></param>
+        /// <param name="dataScope"></param>
+        /// <param name="dataScopeDeptIds"></param>
+        /// <param name="type"></param>
+        /// <param name="remark"></param>
+        public void Modify(string name, string code, int sort, DataScope dataScope, string dataScopeDeptIds, RoleType type, string remark)
+        {
+            Name = name;
+            Code = code;
+            Sort = sort;
+            DataScope = dataScope;
+            DataScopeDeptIds = dataScopeDeptIds;
+            Type = type;
+            Remark = remark;
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        public void Delete()
+        {
+            Deleted = true;
+        }
+
+        #endregion
+    }
+}
