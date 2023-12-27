@@ -17,5 +17,13 @@ namespace Aspros.SaaS.System.WebApi.Controllers
             var result = await _mediator.Send(cmd);
             return Ok(new { data = result, is_successd = true });
         }
+
+        [HttpPost]
+        [Route("tenant.user.role.give")]
+        public async Task<IActionResult> RoleGIved(UserRoleAddCommand cmd)
+        {
+            var result = await _mediator.Send(cmd);
+            return Ok(result);
+        }
     }
 }

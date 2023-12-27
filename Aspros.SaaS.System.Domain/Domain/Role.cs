@@ -1,13 +1,10 @@
 ﻿using Aspros.Base.Framework.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Aspros.Base.Framework.Domain.Interface;
+using Aspros.SaaS.System.Domain.ValueObjects;
 
-namespace Aspros.SaaS.System.Domain.ValueObjects
+namespace Aspros.SaaS.System.Domain.Domain
 {
-    public class Role : BaseEntity
+    public class Role : BaseEntity, IAggregateRoot
     {
         #region
 
@@ -18,12 +15,17 @@ namespace Aspros.SaaS.System.Domain.ValueObjects
         public DataScope DataScope { get; private set; }
         public string DataScopeDeptIds { get; private set; }
         public Status Status { get; private set; } = Status.Normal;
-        public RoleType Type { get; private set; }=RoleType.Normal;
+        public RoleType Type { get; private set; } = RoleType.Normal;
         public string Remark { get; private set; } = string.Empty;
+        public long TenantId { get; private set; }
+
+        public virtual RoleMenu RoleMenu { get; protected set; }
+
+        #endregion
 
         public Role() { }
 
-        public Role(string name, string code, int sort, DataScope dataScope, string dataScopeDeptIds, RoleType type, string remark)
+        public Role(string name, string code, int sort, DataScope dataScope, string dataScopeDeptIds, RoleType type, string remark, long tenantId)
         {
             Name = name;
             Code = code;
@@ -32,6 +34,7 @@ namespace Aspros.SaaS.System.Domain.ValueObjects
             DataScopeDeptIds = dataScopeDeptIds;
             Type = type;
             Remark = remark;
+            TenantId = tenantId;
         }
 
         /// <summary>
@@ -63,6 +66,5 @@ namespace Aspros.SaaS.System.Domain.ValueObjects
             Deleted = true;
         }
 
-        #endregion
     }
 }

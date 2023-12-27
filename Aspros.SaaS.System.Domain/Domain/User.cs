@@ -1,9 +1,10 @@
 ﻿using Aspros.Base.Framework.Domain;
+using Aspros.Base.Framework.Domain.Interface;
 using Aspros.SaaS.System.Domain.ValueObjects;
 
 namespace Aspros.SaaS.System.Domain.Domain
 {
-    public class User : BaseEntity
+    public class User : BaseEntity, IAggregateRoot
     {
         public long Id { get; private set; }
         public string UserName { get; private set; } = string.Empty;
@@ -23,6 +24,8 @@ namespace Aspros.SaaS.System.Domain.Domain
 
         public virtual Tenant Tenant { get; protected set; }
 
+        public virtual UserRole UserRole { get; protected set; }
+
         public User() { }
 
         public User(string name, long tenantId)
@@ -30,6 +33,11 @@ namespace Aspros.SaaS.System.Domain.Domain
             UserName = name;
             TenantId = tenantId;
             NickName = name;
+        }
+
+        public void AddUserRole(UserRole role)
+        {
+            UserRole = role;
         }
     }
 }

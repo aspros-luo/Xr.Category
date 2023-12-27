@@ -56,6 +56,7 @@ builder.Services.AddTransient<IDbContext, SystemDbContext>();
 builder.Services.AddHttpContextAccessor();
 //仓储
 builder.Services.AddTransient<ITenantPackageRepository, TenantPackageRepository>();
+builder.Services.AddTransient<IUserReporistory, UserReporistory>();
 //事件总线
 builder.Services.AddTransient<IEventBus, EventBus>();
 builder.Services.AddTransient<IEventHandler<TenentUserAddEvent>, TenentUserAddEventHandler>();
@@ -66,6 +67,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Ten
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageListQuery).Assembly));
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantCreateCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserRoleAddCommand).Assembly));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,9 +1,10 @@
 ﻿using Aspros.Base.Framework.Domain;
+using Aspros.Base.Framework.Domain.Interface;
 using Aspros.SaaS.System.Domain.ValueObjects;
 
 namespace Aspros.SaaS.System.Domain.Domain
 {
-    public class Menu : BaseEntity
+    public class Menu : BaseEntity, IAggregateRoot
     {
         #region 属性
 
