@@ -4,9 +4,6 @@ using Aspros.SaaS.System.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Logging;
-using StackExchange.Redis;
-using System.Collections.Concurrent;
 
 namespace Aspros.SaaS.System.WebApi.Controllers
 {

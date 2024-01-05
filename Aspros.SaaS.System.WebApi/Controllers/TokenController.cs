@@ -1,6 +1,7 @@
 ﻿using Aspros.SaaS.System.Application.Command;
-using Aspros.SaaS.System.Infrastructure;
+using Aspros.SaaS.System.Application.Query;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aspros.SaaS.System.WebApi.Controllers
@@ -11,18 +12,24 @@ namespace Aspros.SaaS.System.WebApi.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
-        [HttpPost]
-        [Route("user.login")]
+        [HttpPost("user.login")]
         public async Task<IActionResult> Login(UserLoginCommand cmd)
         {
             return Ok(await _mediator.Send(cmd));
         }
 
-        [HttpPost]
-        [Route("token.refresh")]
+        [Authorize]
+        [HttpPost("token.refresh")]
         public async Task<IActionResult> Refesh(RefreshTokenCommand cmd)
         {
             return Ok(await _mediator.Send(cmd));
+        }
+
+        [Authorize]
+        [HttpGet("user.permission.query")]        
+        public async Task<IActionResult> PermissionQuery()
+        {
+            return Ok(await _mediator.Send(new UserPermissionQuery()));
         }
     }
 }
