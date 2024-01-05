@@ -1,5 +1,6 @@
 ﻿using Aspros.SaaS.System.Application.Command;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aspros.SaaS.System.WebApi.Controllers
@@ -19,8 +20,9 @@ namespace Aspros.SaaS.System.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("tenant.user.role.give")]
-        public async Task<IActionResult> RoleGIved(UserRoleAddCommand cmd)
+        [Route("tenant.user.role.confer")]
+        [Authorize()]
+        public async Task<IActionResult> RoleGIved(UserRoleConferCommand cmd)
         {
             var result = await _mediator.Send(cmd);
             return Ok(result);

@@ -3,6 +3,7 @@ using Aspros.SaaS.System.Domain.Domain;
 using Aspros.SaaS.System.Domain.Repository;
 using Framework.Domain.Core;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto;
 
 namespace Aspros.SaaS.System.Infrastructure.Repostory
 {
@@ -23,6 +24,11 @@ namespace Aspros.SaaS.System.Infrastructure.Repostory
         public IQueryable<User> QueryListByIds(List<long> ids)
         {
             return _users.Where(x => ids.Contains(x.Id));
+        }
+
+        public IQueryable<User> QueryUser(string name, string password, long tenantId)
+        {
+            return _users.Where(x => x.UserName == name && x.Password == password && x.TenantId == tenantId);
         }
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Aspros.SaaS.System.Application.Command
 {
-    public class UserRoleAddCommand : IRequest<SubmitResult>
+    public class UserRoleConferCommand : IRequest<SubmitResult>
     {
         public required long UserId { get; set; }
         public required string RoleIds { get; set; }

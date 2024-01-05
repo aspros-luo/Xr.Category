@@ -8,10 +8,15 @@ using Aspros.SaaS.System.Application.Query;
 using Aspros.SaaS.System.Domain.DomainEvent;
 using Aspros.SaaS.System.Domain.DomainEvent.EventHandler;
 using Aspros.SaaS.System.Domain.Repository;
+using Aspros.SaaS.System.Infrastructure;
 using Aspros.SaaS.System.Infrastructure.Repostory;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Nacos.AspNetCore.V2;
 using Newtonsoft.Json;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +33,55 @@ builder.Services
 builder.WebHost.UseUrls($"http://*:5033");
 //读取nacos配置文件
 builder.Host.UseNacosConfig("Nacos");
+
+builder.Services.AddSwaggerGen(c => {
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Description = "在下框中输入请求头中需要添加Jwt授权Token：Bearer Token",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+
+});
+
+//注册jwt处理器
+builder.Services.AddSingleton<JwtHandler>();
+//Authentication
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.IncludeErrorDetails = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true, //是否验证Issuer
+            ValidIssuer = builder.Configuration.GetSection("jwt")["Issuer"], //发行人Issuer
+            ValidateAudience = true, //是否验证Audience
+            ValidAudience = builder.Configuration.GetSection("jwt")["Audience"], //订阅人Audience
+            ValidateIssuerSigningKey = true, //是否验证SecurityKey
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("jwt")["SecretKey"])), //SecurityKey
+            ValidateLifetime = true, //是否验证失效时间
+            ClockSkew = TimeSpan.FromSeconds(30), //过期时间容错值，解决服务器端时间不同步问题（秒）
+            RequireExpirationTime = true,
+        };
+    });
+
 //设置db连接
 builder.Services.AddDbContext<SystemDbContext>(op =>
         op.UseMySql(builder.Configuration.GetSection("data")["ConnectionString"], new MySqlServerVersion(new Version(8, 2, 0))));
@@ -57,6 +111,8 @@ builder.Services.AddHttpContextAccessor();
 //仓储
 builder.Services.AddTransient<ITenantPackageRepository, TenantPackageRepository>();
 builder.Services.AddTransient<IUserReporistory, UserReporistory>();
+builder.Services.AddTransient<IRoleReporistory, RoleReporistory>();
+builder.Services.AddTransient<IMenuReporistory, MenuReporistory>();
 //事件总线
 builder.Services.AddTransient<IEventBus, EventBus>();
 builder.Services.AddTransient<IEventHandler<TenentUserAddEvent>, TenentUserAddEventHandler>();
@@ -67,7 +123,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Ten
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageListQuery).Assembly));
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantCreateCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserRoleAddCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserRoleConferCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserLoginCommand).Assembly));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -91,6 +148,9 @@ ServiceLocator.Instance = app.Services;
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+//权限校验
+//app.UsePermissionValid();
 
 app.MapControllers();
 

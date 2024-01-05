@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aspros.SaaS.System.Application.Command.Handler
 {
-    public class UserRoleAddCommandHandler(IUnitOfWork unitOfWork, IUserReporistory userReporistory) : IRequestHandler<UserRoleAddCommand, SubmitResult>
+    public class UserRoleConferCommandHandler(IUnitOfWork unitOfWork, IUserReporistory userReporistory) : IRequestHandler<UserRoleConferCommand, SubmitResult>
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IUserReporistory _userReporistory = userReporistory;
 
-        public async Task<SubmitResult> Handle(UserRoleAddCommand request, CancellationToken cancellationToken)
+        public async Task<SubmitResult> Handle(UserRoleConferCommand request, CancellationToken cancellationToken)
         {
             var user = await _userReporistory.QueryDetail(request.UserId).FirstOrDefaultAsync(cancellationToken: cancellationToken);
             if (user == null) return SubmitResult.Fail("当前用户不存在");
