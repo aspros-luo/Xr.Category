@@ -16,7 +16,18 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Nacos.AspNetCore.V2;
 using Newtonsoft.Json;
+using System.Net.Sockets;
+using System.Net;
 using System.Text;
+
+
+var listener = new TcpListener(IPAddress.Loopback, 0);
+
+listener.Start();
+int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+listener.Stop();
+listener.Server.Dispose();
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,11 +41,12 @@ builder.Services
         options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
     });
 //手动设置url 后续由apisix转发
-builder.WebHost.UseUrls($"http://*:5033");
+//builder.WebHost.UseUrls($"http://*:5033");
 //读取nacos配置文件
 builder.Host.UseNacosConfig("Nacos");
 
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Description = "在下框中输入请求头中需要添加Jwt授权Token：Bearer Token",
@@ -155,3 +167,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

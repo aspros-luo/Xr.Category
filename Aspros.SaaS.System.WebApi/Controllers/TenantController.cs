@@ -22,7 +22,7 @@ namespace Aspros.SaaS.System.WebApi.Controllers
         [HttpPost]
         [Route("tenant.user.role.confer")]
         [Authorize()]
-        public async Task<IActionResult> RoleGIved(UserRoleConferCommand cmd)
+        public async Task<IActionResult> RoleGived(UserRoleConferCommand cmd)
         {
             var result = await _mediator.Send(cmd);
             return Ok(result);

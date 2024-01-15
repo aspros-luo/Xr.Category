@@ -2,6 +2,7 @@
 using Aspros.SaaS.System.Domain.Domain;
 using Aspros.SaaS.System.Domain.Repository;
 using Mapster;
+using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,14 +12,15 @@ namespace Aspros.SaaS.System.Application.Query.Handler
     public class TenantPackageListQueryHandler(ITenantPackageRepository tenantPackageRepository, IServiceScopeFactory serviceScopeFactory) : IRequestHandler<TenantPackageListQuery, List<TenantPackageViewModel>>
     {
         private readonly ITenantPackageRepository _tenantPackageRepository = tenantPackageRepository;
-        
+
         private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
 
         async Task<List<TenantPackageViewModel>> IRequestHandler<TenantPackageListQuery, List<TenantPackageViewModel>>.Handle(TenantPackageListQuery request, CancellationToken cancellationToken)
         {
-            var result =  await _tenantPackageRepository.QueryList(request.Name).ToListAsync();
+            var result = await _tenantPackageRepository.QueryList(request.Name).ToListAsync();
             var pageResult = result.Adapt<List<TenantPackageViewModel>>();
             //pageResult.AsParallel().Select(x => x.Status.GetNameKeyValue());
+
             return pageResult;
 
         }
