@@ -1,4 +1,4 @@
-﻿using Aspros.Base.Framework.Infrastructure.Interface;
+﻿using Aspros.Base.Framework.Infrastructure;
 using Aspros.SaaS.System.Domain.Repository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

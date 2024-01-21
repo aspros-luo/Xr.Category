@@ -10,10 +10,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DotNetCore.CAP" Version="8.0.0" />
-		<PackageReference Include="DotNetCore.CAP.MySql" Version="8.0.0" />
-		<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.0.0" />
-		<PackageReference Include="DotNetCore.CAP.RedisStreams" Version="8.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 

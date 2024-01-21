@@ -1,15 +1,8 @@
 using Aspros.Base.Framework.Infrastructure;
-using Aspros.Base.Framework.Infrastructure.Event;
-using Aspros.Base.Framework.Infrastructure.Interface;
-using Aspros.Base.Framework.Infrastructure.Ioc;
 using Aspros.Project.User.Infrastructure.Repository;
-using Aspros.SaaS.System.Application.Command;
-using Aspros.SaaS.System.Application.Query;
 using Aspros.SaaS.System.Domain.DomainEvent;
 using Aspros.SaaS.System.Domain.DomainEvent.EventHandler;
-using Aspros.SaaS.System.Domain.Repository;
 using Aspros.SaaS.System.Infrastructure;
-using Aspros.SaaS.System.Infrastructure.Repostory;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -41,7 +34,7 @@ builder.Services
         options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
     });
 //手动设置url 后续由apisix转发
-//builder.WebHost.UseUrls($"http://*:5033");
+//builder.WebHost.UseUrls($"http://*:{port}");
 //读取nacos配置文件
 builder.Host.UseNacosConfig("Nacos");
 
@@ -112,31 +105,38 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 //注册服务到nacos
 builder.Services.AddNacosAspNet(builder.Configuration, "Nacos");
+
 //工作单元组
-builder.Services.AddTransient<IUnitOfWork, Aspros.SaaS.System.Infrastructure.UnitOfWork>();
+//builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 //获取token中当前操作人,租户等信息
-builder.Services.AddTransient<IWorkContext, WorkContext>();
+//builder.Services.AddTransient<IWorkContext, WorkContext>();
 //dbContext
-builder.Services.AddTransient<IDbContext, SystemDbContext>();
+//builder.Services.AddTransient<IDbContext, SystemDbContext>();
+
 //http context 上下文
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AutoInject();
+
 //仓储
-builder.Services.AddTransient<ITenantPackageRepository, TenantPackageRepository>();
-builder.Services.AddTransient<IUserReporistory, UserReporistory>();
-builder.Services.AddTransient<IRoleReporistory, RoleReporistory>();
-builder.Services.AddTransient<IMenuReporistory, MenuReporistory>();
+//builder.Services.AddTransient<ITenantPackageRepository, TenantPackageRepository>();
+//builder.Services.AddTransient<IUserReporistory, UserReporistory>();
+//builder.Services.AddTransient<IRoleReporistory, RoleReporistory>();
+//builder.Services.AddTransient<IMenuReporistory, MenuReporistory>();
+
 //事件总线
 builder.Services.AddTransient<IEventBus, EventBus>();
 builder.Services.AddTransient<IEventHandler<TenentUserAddEvent>, TenentUserAddEventHandler>();
+
 //cqrs cmd query
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageCreateCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageModifyCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageDelCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageListQuery).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantCreateCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserRoleConferCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserLoginCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserPermissionQuery).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageCreateCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageModifyCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageDelCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantPackageListQuery).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(TenantCreateCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserRoleConferCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserLoginCommand).Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UserPermissionQuery).Assembly));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -154,7 +154,7 @@ if (app.Environment.IsDevelopment())
 //重写参数
 //app.UseRewriteQueryString();
 
-//获取服务IOC
+//获取服务
 ServiceLocator.Instance = app.Services;
 
 app.UseHttpsRedirection();
@@ -162,7 +162,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 //权限校验
-//app.UsePermissionValid();
+app.UsePermissionValid();
 
 app.MapControllers();
 

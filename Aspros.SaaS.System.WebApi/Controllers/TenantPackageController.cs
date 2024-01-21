@@ -1,7 +1,10 @@
-﻿using Aspros.SaaS.System.Application.Command;
+﻿using Aspros.Base.Framework.Infrastructure;
+using Aspros.SaaS.System.Application.Command;
 using Aspros.SaaS.System.Application.Query;
+using Aspros.SaaS.System.Domain.Domain;
 using Aspros.SaaS.System.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -47,8 +50,10 @@ namespace Aspros.SaaS.System.WebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Permission("tenant.package.redis.test")]
         [Route("tenant.package.redis.test")]
-        [Permission("system:user:query1", "2,101")]
+        //[Permission("system:user:query1", "2,101")]
         public async Task<IActionResult> RedisTest(string a)
         {
             await _distributedCache.SetStringAsync($"{a}-key", a);

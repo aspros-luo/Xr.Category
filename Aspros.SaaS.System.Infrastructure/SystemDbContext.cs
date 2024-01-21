@@ -1,5 +1,5 @@
 using System.Reflection;
-using Aspros.Base.Framework.Infrastructure.Interface;
+using Aspros.Base.Framework.Infrastructure;
 using Aspros.SaaS.System.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 

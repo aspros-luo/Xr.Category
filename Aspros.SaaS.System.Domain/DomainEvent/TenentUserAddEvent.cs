@@ -1,4 +1,4 @@
-﻿using Aspros.Base.Framework.Infrastructure.Interface;
+﻿using Aspros.Base.Framework.Infrastructure;
 
 namespace Aspros.SaaS.System.Domain.DomainEvent
 {

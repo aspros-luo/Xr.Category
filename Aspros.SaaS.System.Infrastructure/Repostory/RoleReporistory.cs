@@ -1,7 +1,7 @@
-﻿using Aspros.Base.Framework.Infrastructure.Interface;
+﻿using Aspros.Base.Framework.Domain;
+using Aspros.Base.Framework.Infrastructure;
 using Aspros.SaaS.System.Domain.Domain;
 using Aspros.SaaS.System.Domain.Repository;
-using Framework.Domain.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aspros.SaaS.System.Infrastructure.Repostory

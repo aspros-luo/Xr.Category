@@ -1,5 +1,4 @@
-﻿using Aspros.Base.Framework.Infrastructure.Interface;
-using Aspros.Base.Framework.Infrastructure.Ioc;
+﻿using Aspros.Base.Framework.Infrastructure;
 using Aspros.SaaS.System.Domain.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

@@ -25,11 +25,6 @@ namespace Aspros.SaaS.System.WebApi.Controllers
             return Ok(await _mediator.Send(cmd));
         }
 
-        [Authorize]
-        [HttpGet("user.permission.query")]        
-        public async Task<IActionResult> PermissionQuery()
-        {
-            return Ok(await _mediator.Send(new UserPermissionQuery()));
-        }
+
     }
 }

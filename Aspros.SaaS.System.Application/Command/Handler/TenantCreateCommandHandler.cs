@@ -1,5 +1,4 @@
-﻿using Aspros.Base.Framework.Infrastructure.Interface;
-using Aspros.Base.Framework.Infrastructure.Ioc;
+﻿using Aspros.Base.Framework.Infrastructure;
 using Aspros.SaaS.System.Domain.Domain;
 using Aspros.SaaS.System.Domain.DomainEvent;
 using MediatR;
@@ -9,7 +8,6 @@ namespace Aspros.SaaS.System.Application.Command.Handler
 {
     public class TenantCreateCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<TenantCreateCommand, long>
     {
-       
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IEventBus _eventBus = ServiceLocator.Instance.GetService<IEventBus>();
         public async Task<long> Handle(TenantCreateCommand request, CancellationToken cancellationToken)

@@ -7,13 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspros.Base.Framework.Infrastructure" Version="1.0.6" />
-		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
-		<PackageReference Include="MassTransit.RabbitMQ" Version="8.1.3" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<ProjectReference Include="..\..\Aspros.Base.Framework\Aspros.Base.Framework.Infrastructure\Aspros.Base.Framework.Infrastructure.csproj" />
 		<ProjectReference Include="..\Aspros.SaaS.System.Domain\Aspros.SaaS.System.Domain.csproj" />
 	</ItemGroup>
 

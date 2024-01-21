@@ -7,8 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspros.Base.Framework.Domain" Version="1.0.2" />
-		<PackageReference Include="Aspros.Base.Framework.Infrastructure" Version="1.0.6" />
+	  <ProjectReference Include="..\..\Aspros.Base.Framework\Aspros.Base.Framework.Domain\Aspros.Base.Framework.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
