@@ -26,7 +26,7 @@ namespace Aspros.SaaS.System.Domain.Domain
         public Menu(long parentId, string parentPath, string name, MenuType type, int sort, string permission, string component, string icon, bool visible = true)
         {
             ParentId = parentId;
-            Path = ParentId == 0 ? parentId.ToString() : parentPath + "|" + Id;
+            Path = ParentId == 0 ? Id.ToString() : parentPath + "|" + Id;
             Name = name;
             Type = type;
             Sort = sort;

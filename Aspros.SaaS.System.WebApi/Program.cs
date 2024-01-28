@@ -15,7 +15,6 @@ using System.Text;
 
 
 var listener = new TcpListener(IPAddress.Loopback, 0);
-
 listener.Start();
 int port = ((IPEndPoint)listener.LocalEndpoint).Port;
 listener.Stop();
@@ -168,3 +167,4 @@ app.MapControllers();
 
 app.Run();
 
+public partial class Program { }

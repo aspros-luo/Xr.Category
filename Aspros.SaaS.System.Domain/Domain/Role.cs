@@ -11,7 +11,7 @@ namespace Aspros.SaaS.System.Domain.Domain
         public string Name { get; private set; }
         public string Code { get; private set; }
         public int Sort { get; private set; }
-        public DataScope DataScope { get; private set; }
+        public DataScope DataScope { get; private set; } = DataScope.All;
         public string DataScopeDeptIds { get; private set; }
         public Status Status { get; private set; } = Status.Normal;
         public RoleType Type { get; private set; } = RoleType.Normal;
