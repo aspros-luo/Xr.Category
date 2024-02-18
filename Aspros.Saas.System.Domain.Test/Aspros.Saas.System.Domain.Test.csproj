@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Aspros.Base.Framework\Aspros.Base.Framework.Domain\Aspros.Base.Framework.Domain.csproj" />
     <ProjectReference Include="..\Aspros.Saas.System.Base.Test\Aspros.Saas.System.Base.Test.csproj" />
   </ItemGroup>
 

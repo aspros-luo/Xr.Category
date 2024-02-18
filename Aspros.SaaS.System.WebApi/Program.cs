@@ -89,6 +89,7 @@ builder.Services
 //设置db连接
 builder.Services.AddDbContext<SystemDbContext>(op =>
         op.UseMySql(builder.Configuration.GetSection("data")["ConnectionString"], new MySqlServerVersion(new Version(8, 2, 0))));
+
 //CAP
 builder.Services.AddCap(x =>
 {
@@ -96,12 +97,14 @@ builder.Services.AddCap(x =>
     x.UseRedis(builder.Configuration.GetSection("data")["RedisServer"]);
     x.UseRabbitMQ(builder.Configuration.GetSection("data")["RabbitMqServer"]);
 });
+
 //设置redis连接
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.InstanceName = "";
     options.Configuration = builder.Configuration.GetSection("data")["RedisServer"];
 });
+
 //注册服务到nacos
 builder.Services.AddNacosAspNet(builder.Configuration, "Nacos");
 
@@ -115,6 +118,7 @@ builder.Services.AddNacosAspNet(builder.Configuration, "Nacos");
 //http context 上下文
 builder.Services.AddHttpContextAccessor();
 
+//自动注入
 builder.Services.AutoInject();
 
 //仓储
@@ -139,6 +143,7 @@ builder.Services.AddTransient<IEventHandler<TenentUserAddEvent>, TenentUserAddEv
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
