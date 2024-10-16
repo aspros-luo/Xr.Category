@@ -1,6 +1,0 @@
-@Aspros.SaaS.System.WebApi_HostAddress = http://localhost:5033
-
-GET {{Aspros.SaaS.System.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

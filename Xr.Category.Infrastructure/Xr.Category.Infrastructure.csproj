@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Aspros.Base.Framework.Infrastructure" Version="1.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Xr.Category.Domain\Xr.Category.Domain.csproj" />
+	</ItemGroup>
+
+</Project>
