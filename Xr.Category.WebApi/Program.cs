@@ -1,9 +1,5 @@
 using Aspros.Base.Framework.Infrastructure;
 using Aspros.Project.User.Infrastructure.Repository;
-using Xr.System.Domain.DomainEvent;
-using Xr.System.Domain.DomainEvent.EventHandler;
-using Xr.System.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -11,9 +7,6 @@ using Nacos.AspNetCore.V2;
 using Newtonsoft.Json;
 using System.Net.Sockets;
 using System.Net;
-using System.Text;
-using IdentityServer4.AccessTokenValidation;
-using Nacos.V2.Naming.Dtos;
 using Nacos.V2;
 
 
@@ -108,7 +101,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 //…Ë÷√db¡¨Ω”
-builder.Services.AddDbContext<SystemDbContext>(op =>
+builder.Services.AddDbContext<CategoryDbContext>(op =>
         op.UseMySql(builder.Configuration.GetSection("data")["ConnectionString"], new MySqlServerVersion(new Version(8, 2, 0))));
 
 //CAP

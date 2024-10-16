@@ -10,4 +10,8 @@
 	  <PackageReference Include="Aspros.Base.Framework.Domain" Version="1.0.3" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="ValueObjects\" />
+	</ItemGroup>
+
 </Project>

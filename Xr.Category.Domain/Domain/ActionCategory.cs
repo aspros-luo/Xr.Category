@@ -43,14 +43,18 @@ namespace Xr.Category.Domain
 
         public ActionCategory() { }
 
-        public ActionCategory(long parentId, string name, string path, int sortOrder, string features, string remark)
+        public ActionCategory(long parentId, string name, int sortOrder, string features, string remark)
         {
             ParentId = parentId;
             Name = name;
-            Path = path;
             SortOrder = sortOrder;
             Features = features;
             Remark = remark;
+        }
+
+        public void ModifyPath(string path) 
+        { 
+            Path = path;
         }
     }
 }

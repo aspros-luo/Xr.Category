@@ -1,11 +1,4 @@
-﻿using Xr.System.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Xr.System.Application.ViewModel
+﻿namespace Xr.System.Application.ViewModel
 {
     public class TenantPackageViewModel
     {

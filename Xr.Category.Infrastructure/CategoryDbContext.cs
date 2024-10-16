@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aspros.Project.User.Infrastructure.Repository
 {
-    public class SystemDbContext(DbContextOptions options) : DbContext(options), IDbContext
+    public class CategoryDbContext(DbContextOptions options) : DbContext(options), IDbContext
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
