@@ -1,22 +1,42 @@
 ﻿
+using Aspros.Base.Framework.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Xr.Category.Application;
 
 namespace Xr.System.WebApi.Controllers
 {
     [ApiController]
     [Route("category")]
-    public class CategoryController (IMediator mediator) : Controller
+    public class CategoryController (IMediator mediator) : WebApiController
     {
         private readonly IMediator _mediator = mediator;
 
-        [HttpPost]
-        [Route("demo.test")]
+        /// <summary>
+        /// 新增类目
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
         [Authorize]
-        public async Task<IActionResult> DemoTest()
+        [HttpPost("action.category.add")]
+        public async Task<IActionResult> ActionCategoryAdd([FromBody] CategoryAddCmd cmd)
         {
-            return Ok(DateTime.Now);
+            var result = await _mediator.Send(cmd);
+            return Success(result);
+        }
+
+        /// <summary>
+        /// 修改类目
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPut("action.category.modify")]
+        public async Task<IActionResult> ActionCategoryModify([FromBody] CategoryModifyCmd cmd)
+        {
+            var result = await _mediator.Send(cmd);
+            return Success(result);
         }
     }
 }

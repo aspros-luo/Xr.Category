@@ -2,9 +2,9 @@
 
 namespace Xr.Category.Application
 {
-    public class CategoryAddCmd : IRequest<long>
+    public class CategoryModifyCmd : IRequest<bool>
     {
-        public long ParentId { get; set; } = 0;
+        public long Id { get; set; } 
 
         /// <summary>
         /// 类目名称

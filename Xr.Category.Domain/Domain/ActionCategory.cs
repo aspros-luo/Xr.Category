@@ -52,9 +52,23 @@ namespace Xr.Category.Domain
             Remark = remark;
         }
 
-        public void ModifyPath(string path) 
-        { 
+        public void ModifyPath(string path)
+        {
             Path = path;
+        }
+
+        public void UpdateCategoryLeaf(bool isLeaf = true)
+        {
+            IsLeaf = isLeaf;
+        }
+
+        public void Update(long parentId, string name, int sortOrder, string features, string remark)
+        {
+            ParentId = parentId;
+            Name = name;
+            SortOrder = sortOrder;
+            Features = features;
+            Remark = remark;
         }
     }
 }

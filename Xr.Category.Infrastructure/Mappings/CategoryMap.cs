@@ -20,9 +20,9 @@ namespace Xr.System.Infrastructure.Mappings
             entityTypeBuilder.Property(i => i.Remark);
             entityTypeBuilder.Property(i => i.Status);
             entityTypeBuilder.Property(i => i.Creator);
-            entityTypeBuilder.Property(i => i.GmtCreated).HasColumnName("create_time");
-            entityTypeBuilder.Property(i => i.Updater);
-            entityTypeBuilder.Property(i => i.GmtModified).HasColumnName("update_time");
+            entityTypeBuilder.Property(i => i.GmtCreated).HasColumnName("gmt_created");
+            entityTypeBuilder.Property(i => i.Modifier);
+            entityTypeBuilder.Property(i => i.GmtModified).HasColumnName("gmt_modified");
             entityTypeBuilder.Property(i => i.IsDeleted).HasColumnName("is_deleted");
         }
     }

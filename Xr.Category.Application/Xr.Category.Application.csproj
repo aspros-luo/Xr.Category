@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="MessageConsumer\" />
     <Folder Include="Query\Handler\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>
