@@ -38,5 +38,18 @@ namespace Xr.System.WebApi.Controllers
             var result = await _mediator.Send(cmd);
             return Success(result);
         }
+
+        /// <summary>
+        /// 查看类目详情
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("action.category.detail.query")]
+        public async Task<IActionResult> ActionCategoryDetailQuery([FromQuery] CategoryDetailQuery query)
+        {
+            var data  = await _mediator.Send(query);
+            return Success(data);
+        }
     }
 }

@@ -9,14 +9,11 @@ using System.Net.Sockets;
 using System.Net;
 using Nacos.V2;
 
-
 var listener = new TcpListener(IPAddress.Loopback, 0);
 listener.Start();
 int port = ((IPEndPoint)listener.LocalEndpoint).Port;
 listener.Stop();
 listener.Server.Dispose();
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,12 +26,16 @@ builder.Services
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
     });
+
 //手动设置url 后续由apisix转发
 //builder.WebHost.UseUrls($"http://*:{port}");
 //读取nacos配置文件
 builder.Host.UseNacosConfig("Nacos");
+
 //注册服务到nacos
 builder.Services.AddNacosAspNet(builder.Configuration, "Nacos");
+
+//builder.Services.AddAutoMapper()
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -91,14 +92,12 @@ builder.Services
         };
     })
     ;
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiScope", policy =>
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("ApiScope", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireClaim("scope", "category_brand");
     });
-});
 
 //设置db连接
 builder.Services.AddDbContext<CategoryDbContext>(op =>
