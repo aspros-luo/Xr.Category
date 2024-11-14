@@ -35,5 +35,13 @@ namespace Xr.Category.Domain
             PropertyType = propertyType;
             Features = features;
         }
+
+        public void Update(long parentId, string name, int propertyType, string features)
+        {
+            ParentId = parentId;
+            Name = name;
+            PropertyType = propertyType;
+            Features = features;
+        }
     }
 }

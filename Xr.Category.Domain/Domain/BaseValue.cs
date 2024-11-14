@@ -16,9 +16,17 @@ namespace Xr.Category.Domain
         /// </summary>
         public string ValueDataUpper { get; protected set; } = string.Empty;
 
+
+
         public BaseValue() { }
 
         public BaseValue(string valueData, string valueDataUpper)
+        {
+            ValueData = valueData;
+            ValueDataUpper = valueDataUpper;
+        }
+
+        public void Update(string valueData, string valueDataUpper)
         {
             ValueData = valueData;
             ValueDataUpper = valueDataUpper;
