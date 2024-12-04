@@ -21,6 +21,8 @@ namespace Xr.Category.Domain
         /// </summary>
         public string PropertyName { get; protected set; } = string.Empty;
 
+        public virtual BaseProperty BaseProperty { get; protected set; }
+
         public CategoryProperty() { }
 
         public CategoryProperty(long categoryId, long propertyId, string propertyName)

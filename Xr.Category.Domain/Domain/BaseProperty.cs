@@ -4,6 +4,7 @@ namespace Xr.Category.Domain
 {
     public class BaseProperty : BasicEntity, IAggregateRoot
     {
+
         public long Id { get; protected set; }
 
         /// <summary>
@@ -26,7 +27,12 @@ namespace Xr.Category.Domain
         /// </summary>
         public string Features { get; protected set; } = string.Empty;
 
-        public BaseProperty() { }
+        public virtual ICollection<CategoryProperty> CategoryProperties { get; set; }
+
+        public BaseProperty()
+        {
+            CategoryProperties = [];
+        }
 
         public BaseProperty(long parentId, string name, int propertyType, string features)
         {
@@ -34,6 +40,7 @@ namespace Xr.Category.Domain
             Name = name;
             PropertyType = propertyType;
             Features = features;
+            CategoryProperties = [];
         }
 
         public void Update(long parentId, string name, int propertyType, string features)
