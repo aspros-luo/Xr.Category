@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using System.Net.Sockets;
 using System.Net;
 using Nacos.V2;
+using static Org.BouncyCastle.Math.EC.ECCurve;
+using Scalar.AspNetCore;
 
 var listener = new TcpListener(IPAddress.Loopback, 0);
 listener.Start();
@@ -39,6 +41,20 @@ builder.Services.AddNacosAspNet(builder.Configuration, "Nacos");
 
 builder.Services.AddSwaggerGen(c =>
 {
+    #region 配置API文档说明
+
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "类目",
+        Description = "类目Api说明",
+    });
+
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Xr.Category.Application.xml"),true);
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Xr.Category.WebApi.xml"),true);
+
+    #endregion
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Description = "在下框中输入请求头中需要添加Jwt授权Token：Bearer Token",
@@ -161,9 +177,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(options =>
+    {
+        options.RouteTemplate = "/openapi/{documentName}.json";
+    });
     app.UseSwaggerUI();
 }
+
+app.MapScalarApiReference();
 
 //重写参数
 //app.UseRewriteQueryString();

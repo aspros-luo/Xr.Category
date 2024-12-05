@@ -23,10 +23,14 @@ namespace Xr.Category.Domain
 
         public virtual BaseProperty BaseProperty { get; protected set; }
 
-        public CategoryProperty() { }
+        public CategoryProperty()
+        {
+            BaseProperty = new BaseProperty();
+        }
 
         public CategoryProperty(long categoryId, long propertyId, string propertyName)
         {
+            BaseProperty = new BaseProperty();
             CategoryId = categoryId;
             PropertyId = propertyId;
             PropertyName = propertyName;

@@ -12,7 +12,7 @@ namespace Xr.Category.Application.Command
 
         public async Task<bool> Handle(CategoryModifyCmd request, CancellationToken cancellationToken)
         {
-            var category = await _categoryReporistory.QueryDetail(request.Id).FirstOrDefaultAsync() ?? throw new Exception("数据不存在");
+            var category = await _categoryReporistory.QueryDetail(request.Id).FirstOrDefaultAsync(cancellationToken: cancellationToken) ?? throw new Exception("数据不存在");
             category.Update(category.ParentId, request.Name, request.SortOrder, request.Features, request.Remark);
             await _unitOfWork.RegisterDirty(category);
             return await _unitOfWork.CommitAsync();

@@ -7,6 +7,11 @@ using Xr.Category.Application;
 
 namespace Xr.System.WebApi.Controllers
 {
+    /// <summary>
+    /// 类目
+    /// </summary>
+    /// <param name="mediator"></param>
+    [Tags("类目")]
     [ApiController]
     [Route("category")]
     public class CategoryController (IMediator mediator) : WebApiController
